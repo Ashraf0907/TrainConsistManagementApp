@@ -56,6 +56,18 @@ public class tcm {
 
         // Step 3: Display formation
         System.out.println("\nFinal Train Formation (Ordered & Unique):");
-        System.out.println(formation);
+        System.out.println(formation);HashMap<String, Integer> capacityMap = new HashMap<>();
+
+        // Step 1: Add bogie-capacity mapping
+        capacityMap.put("Sleeper", 72);
+        capacityMap.put("AC Chair", 50);
+        capacityMap.put("First Class", 24);
+
+        // Step 2: Display using entrySet()
+        System.out.println("\nBogie Capacity Details:");
+
+        for (Map.Entry<String, Integer> entry : capacityMap.entrySet()) {
+            System.out.println(entry.getKey() + " → " + entry.getValue() + " seats");
+        }
     }
 }

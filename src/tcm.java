@@ -43,5 +43,19 @@ public class tcm {
         train.removeLast();
         System.out.println("\nAfter Removing First and Last Bogies:");
         System.out.println(train);
+        LinkedHashSet<String> formation = new LinkedHashSet<>();
+
+        // Step 1: Add bogies
+        formation.add("Engine");
+        formation.add("Sleeper");
+        formation.add("Cargo");
+        formation.add("Guard");
+
+        // Step 2: Add duplicate
+        formation.add("Sleeper"); // duplicate ignored
+
+        // Step 3: Display formation
+        System.out.println("\nFinal Train Formation (Ordered & Unique):");
+        System.out.println(formation);
     }
 }

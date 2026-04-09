@@ -28,5 +28,20 @@ public class tcm {
         bogieIDs.add("BG102");
         System.out.println("\nUnique Bogie IDs:");
         System.out.println(bogieIDs);
+        LinkedList<String> train = new LinkedList<>();
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
+        System.out.println("\nInitial Train Consist:");
+        System.out.println(train);
+        train.add(2, "Pantry");
+        System.out.println("\nAfter Adding Pantry at Position 2:");
+        System.out.println(train);
+        train.removeFirst();
+        train.removeLast();
+        System.out.println("\nAfter Removing First and Last Bogies:");
+        System.out.println(train);
     }
 }

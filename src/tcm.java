@@ -68,6 +68,42 @@ public class tcm {
 
         for (Map.Entry<String, Integer> entry : capacityMap.entrySet()) {
             System.out.println(entry.getKey() + " → " + entry.getValue() + " seats");
+            // ================= UC8: Stream Filtering =================
+            System.out.println("\n=== UC8: Filter Passenger Bogies (Capacity > 60) ===");
+
+            class Bogie {
+                String name;
+                int capacity;
+
+                Bogie(String name, int capacity) {
+                    this.name = name;
+                    this.capacity = capacity;
+                }
+
+                public String toString() {
+                    return name + " (" + capacity + ")";
+                }
+            }
+
+// Create bogie list with capacity
+            List<Bogie> bogieList = new ArrayList<>();
+            bogieList.add(new Bogie("Sleeper", 72));
+            bogieList.add(new Bogie("AC Chair", 50));
+            bogieList.add(new Bogie("First Class", 24));
+            bogieList.add(new Bogie("General", 90));
+
+// Display original list
+            System.out.println("Original Bogies:");
+            System.out.println(bogieList);
+
+// Apply stream filter
+            List<Bogie> filteredBogies = bogieList.stream()
+                    .filter(b -> b.capacity > 60)
+                    .toList();
+
+// Display filtered result
+            System.out.println("\nFiltered Bogies (Capacity > 60):");
+            System.out.println(filteredBogies);
         }
     }
 }

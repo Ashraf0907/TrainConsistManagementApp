@@ -106,6 +106,7 @@ public class TrainConsistManagementApp {
             System.out.println("\nFiltered Bogies (Capacity > 60):");
             System.out.println(filteredBogies);
             System.out.println("UC8 executed successfully");
+
             // ================= UC9: Group Bogies by Type =================
             System.out.println("\n=== UC9: Group Bogies by Type ===");
 
@@ -120,6 +121,10 @@ public class TrainConsistManagementApp {
                 System.out.println(group.getKey() + " → " + group.getValue());
 
             }
+
+            Map<String, List<Bogie>> groupedBogies = bogieList.stream()
+                    .collect(Collectors.groupingBy(b -> b.name));
+
         }
     }
 }

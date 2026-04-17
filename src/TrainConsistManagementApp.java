@@ -190,5 +190,17 @@ public class TrainConsistManagementApp {
             System.out.print(cap + " ");
         }
         System.out.println();
+        // ================= UC17: Sort Bogie Names =================
+        System.out.println("\n=== UC17: Sort Bogie Names (Arrays.sort) ===");
+
+// Step 1: Create array
+        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+
+// Step 2: Sort using built-in method
+        Arrays.sort(bogieNames);
+
+// Step 3: Display result
+        System.out.println("Sorted Bogie Names:");
+        System.out.println(Arrays.toString(bogieNames));
     }
 }

@@ -165,5 +165,30 @@ public class TrainConsistManagementApp {
         }
 
         System.out.println("Program continues safely...");
+        // ================= UC16: Bubble Sort =================
+        System.out.println("\n=== UC16: Bubble Sort (Passenger Capacities) ===");
+
+// Step 1: Create array
+        int[] capacities = {72, 56, 24, 70, 60};
+
+// Step 2: Bubble Sort logic
+        for (int i = 0; i < capacities.length - 1; i++) {
+            for (int j = 0; j < capacities.length - i - 1; j++) {
+
+                if (capacities[j] > capacities[j + 1]) {
+                    // swap
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
+            }
+        }
+
+// Step 3: Display sorted array
+        System.out.println("Sorted Capacities:");
+        for (int cap : capacities) {
+            System.out.print(cap + " ");
+        }
+        System.out.println();
     }
 }

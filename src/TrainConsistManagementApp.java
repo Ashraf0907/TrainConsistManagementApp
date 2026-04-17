@@ -106,8 +106,31 @@ public class TrainConsistManagementApp {
             System.out.println("\nFiltered Bogies (Capacity > 60):");
             System.out.println(filteredBogies);
             System.out.println("UC8 executed successfully");
+
+            // ================= UC9: Group Bogies by Type =================
+            System.out.println("\n=== UC9: Group Bogies by Type ===");
+
+// Step 1: Group bogies using groupingBy
             Map<String, List<Bogie>> groupedBogies = bogieList.stream()
                     .collect(Collectors.groupingBy(b -> b.name));
+
+// Step 2: Display grouped result
+            System.out.println("\nGrouped Bogies:");
+
+            for (Map.Entry<String, List<Bogie>> group : groupedBogies.entrySet()) {
+                System.out.println(group.getKey() + " → " + group.getValue());
+                // ================= UC10: Total Seating Capacity =================
+                System.out.println("\n=== UC10: Total Seating Capacity ===");
+
+// Step 1: Calculate total seats using Stream
+                int totalSeats = bogieList.stream()
+                        .map(b -> b.capacity)
+                        .reduce(0, Integer::sum);
+
+// Step 2: Display result
+                System.out.println("Total Seating Capacity: " + totalSeats);
+
+            }
         }
     }
 }

@@ -2,14 +2,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.regex.*;
 
-// ================= CUSTOM EXCEPTION =================
+// ================= CUSTOM EXCEPTIONS =================
 class InvalidCapacityException extends Exception {
-    public InvalidCapacityException(String message) {
-        super(message);
+    public InvalidCapacityException(String msg) {
+        super(msg);
     }
 }
 
-// ================= BOGIE CLASS =================
+class CargoSafetyException extends RuntimeException {
+    public CargoSafetyException(String msg) {
+        super(msg);
+    }
+}
+
+// ================= BOGIE =================
 class Bogie {
     String name;
     int capacity;
@@ -32,14 +38,22 @@ class GoodsBogie {
     String type;
     String cargo;
 
-    GoodsBogie(String type, String cargo) {
+    GoodsBogie(String type) {
         this.type = type;
+    }
+
+    void assignCargo(String cargo) {
+        if (type.equals("Rectangular") && cargo.equals("Petroleum")) {
+            throw new CargoSafetyException("Unsafe: Petroleum cannot be assigned to Rectangular bogie");
+        }
         this.cargo = cargo;
+        System.out.println("Assigned: " + type + " → " + cargo);
     }
 }
 
-// ================= MAIN CLASS =================
+// ================= MAIN =================
 public class TrainConsistManagementApp {
+
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
@@ -72,27 +86,29 @@ public class TrainConsistManagementApp {
             System.out.println("Total Seats: " + total);
 
             // ================= UC11 =================
-            System.out.println("\n=== UC11: Regex Validation ===");
+            System.out.println("\n=== UC11: Regex ===");
             String trainId = "TRN-1234";
-            String cargo = "PET-AB";
+            String cargoCode = "PET-AB";
 
-            if (Pattern.matches("TRN-\\d{4}", trainId))
-                System.out.println("Valid Train ID");
-            else
-                System.out.println("Invalid Train ID");
-
-            if (Pattern.matches("PET-[A-Z]{2}", cargo))
-                System.out.println("Valid Cargo Code");
-            else
-                System.out.println("Invalid Cargo Code");
+            System.out.println(Pattern.matches("TRN-\\d{4}", trainId) ? "Valid Train ID" : "Invalid Train ID");
+            System.out.println(Pattern.matches("PET-[A-Z]{2}", cargoCode) ? "Valid Cargo Code" : "Invalid Cargo Code");
 
             // ================= UC12 =================
             System.out.println("\n=== UC12: Safety Check ===");
-            List<GoodsBogie> goods = List.of(
-                    new GoodsBogie("Cylindrical", "Petroleum"),
-                    new GoodsBogie("Open", "Coal"),
-                    new GoodsBogie("Box", "Grain")
-            );
+            List<GoodsBogie> goods = new ArrayList<>();
+
+            GoodsBogie g1 = new GoodsBogie("Cylindrical");
+            g1.assignCargo("Petroleum");
+
+            GoodsBogie g2 = new GoodsBogie("Open");
+            g2.assignCargo("Coal");
+
+            GoodsBogie g3 = new GoodsBogie("Box");
+            g3.assignCargo("Grain");
+
+            goods.add(g1);
+            goods.add(g2);
+            goods.add(g3);
 
             boolean safe = goods.stream().allMatch(b ->
                     !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum"));
@@ -118,8 +134,8 @@ public class TrainConsistManagementApp {
                     .toList();
             long t4 = System.nanoTime();
 
-            System.out.println("Loop: " + (t2 - t1));
-            System.out.println("Stream: " + (t4 - t3));
+            System.out.println("Loop Time: " + (t2 - t1));
+            System.out.println("Stream Time: " + (t4 - t3));
 
             // ================= UC14 =================
             System.out.println("\n=== UC14: Exception Handling ===");
@@ -132,5 +148,47 @@ public class TrainConsistManagementApp {
         } catch (InvalidCapacityException e) {
             System.out.println("Error: " + e.getMessage());
         }
+
+        // ================= UC15 =================
+        System.out.println("\n=== UC15: Safe Cargo Assignment ===");
+
+        GoodsBogie g1 = new GoodsBogie("Cylindrical");
+        GoodsBogie g2 = new GoodsBogie("Rectangular");
+
+        try {
+            g1.assignCargo("Petroleum");   // safe
+            g2.assignCargo("Petroleum");   // unsafe
+        } catch (CargoSafetyException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            System.out.println("Process completed");
+        }
+
+        System.out.println("Program continues safely...");
+        // ================= UC16: Bubble Sort =================
+        System.out.println("\n=== UC16: Bubble Sort (Passenger Capacities) ===");
+
+// Step 1: Create array
+        int[] capacities = {72, 56, 24, 70, 60};
+
+// Step 2: Bubble Sort logic
+        for (int i = 0; i < capacities.length - 1; i++) {
+            for (int j = 0; j < capacities.length - i - 1; j++) {
+
+                if (capacities[j] > capacities[j + 1]) {
+                    // swap
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
+            }
+        }
+
+// Step 3: Display sorted array
+        System.out.println("Sorted Capacities:");
+        for (int cap : capacities) {
+            System.out.print(cap + " ");
+        }
+        System.out.println();
     }
 }

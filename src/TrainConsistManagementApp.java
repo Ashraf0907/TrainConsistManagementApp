@@ -119,12 +119,18 @@ public class TrainConsistManagementApp {
 
             for (Map.Entry<String, List<Bogie>> group : groupedBogies.entrySet()) {
                 System.out.println(group.getKey() + " → " + group.getValue());
+                // ================= UC10: Total Seating Capacity =================
+                System.out.println("\n=== UC10: Total Seating Capacity ===");
+
+// Step 1: Calculate total seats using Stream
+                int totalSeats = bogieList.stream()
+                        .map(b -> b.capacity)
+                        .reduce(0, Integer::sum);
+
+// Step 2: Display result
+                System.out.println("Total Seating Capacity: " + totalSeats);
 
             }
-
-            Map<String, List<Bogie>> groupedBogies = bogieList.stream()
-                    .collect(Collectors.groupingBy(b -> b.name));
-
         }
     }
 }

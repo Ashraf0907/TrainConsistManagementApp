@@ -226,6 +226,44 @@ public class TrainConsistManagementApp {
             System.out.println("Bogie Found: " + searchKey);
         } else {
             System.out.println("Bogie NOT Found: " + searchKey);
+            // ================= UC19: Binary Search =================
+            System.out.println("\n=== UC19: Binary Search for Bogie ID ===");
+
+// Step 1: Create array (can be unsorted)
+            String[] bogieIDs = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+
+// Step 2: Sort array first
+            Arrays.sort(bogieIDs);
+
+// Step 3: Search key
+            String key = "BG205";
+
+            int low = 0;
+            int high = bogieIDs.length - 1;
+            boolean found = false;
+
+// Step 4: Binary Search logic
+            while (low <= high) {
+                int mid = (low + high) / 2;
+
+                int result = key.compareTo(bogieIDs[mid]);
+
+                if (result == 0) {
+                    found = true;
+                    break;
+                } else if (result < 0) {
+                    high = mid - 1;
+                } else {
+                    low = mid + 1;
+                }
+            }
+
+// Step 5: Output
+            if (found) {
+                System.out.println("Bogie Found: " + key);
+            } else {
+                System.out.println("Bogie NOT Found: " + key);
+            }
         }
     }
 }

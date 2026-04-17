@@ -161,6 +161,45 @@ public class TrainConsistManagementApp {
                     System.out.println("Cargo Code is valid: " + cargoCode);
                 } else {
                     System.out.println("Invalid Cargo Code: " + cargoCode);
+                    // ================= UC12: Safety Compliance Check =================
+                    System.out.println("\n=== UC12: Safety Compliance Check ===");
+
+// Step 1: Create GoodsBogie class (add above main if not created)
+                    class GoodsBogie {
+                        String type;
+                        String cargo;
+
+                        GoodsBogie(String type, String cargo) {
+                            this.type = type;
+                            this.cargo = cargo;
+                        }
+
+                        public String toString() {
+                            return type + " (" + cargo + ")";
+                        }
+                    }
+
+// Step 2: Create goods bogie list
+                    List<GoodsBogie> goodsList = new ArrayList<>();
+                    goodsList.add(new GoodsBogie("Cylindrical", "Petroleum"));
+                    goodsList.add(new GoodsBogie("Open", "Coal"));
+                    goodsList.add(new GoodsBogie("Box", "Grain"));
+// Try invalid case:
+// goodsList.add(new GoodsBogie("Cylindrical", "Coal")); // ❌
+
+// Step 3: Validate using allMatch()
+                    boolean isSafe = goodsList.stream()
+                            .allMatch(b ->
+                                    !b.type.equals("Cylindrical") ||
+                                            b.cargo.equals("Petroleum")
+                            );
+
+// Step 4: Display result
+                    if (isSafe) {
+                        System.out.println("Train is SAFETY COMPLIANT ✅");
+                    } else {
+                        System.out.println("Train is NOT SAFE ❌");
+                    }
                 }
 
             }

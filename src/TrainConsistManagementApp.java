@@ -1,5 +1,5 @@
 import java.util.*;
-public class tcm {
+public class TrainConsistManagementApp {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
         List<String> bogies = new ArrayList<>();
@@ -104,6 +104,7 @@ public class tcm {
 // Display filtered result
             System.out.println("\nFiltered Bogies (Capacity > 60):");
             System.out.println(filteredBogies);
+            System.out.println("UC8 executed successfully");
         }
     }
 }

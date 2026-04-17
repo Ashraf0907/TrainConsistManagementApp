@@ -199,6 +199,45 @@ public class TrainConsistManagementApp {
                         System.out.println("Train is SAFETY COMPLIANT ✅");
                     } else {
                         System.out.println("Train is NOT SAFE ❌");
+                        // ================= UC13: Performance Comparison =================
+                        System.out.println("\n=== UC13: Performance Comparison (Loop vs Stream) ===");
+
+// Step 1: Create large dataset
+                        List<Bogie> testList = new ArrayList<>();
+
+                        for (int i = 0; i < 100000; i++) {
+                            testList.add(new Bogie("Sleeper", (i % 100) + 1));
+                        }
+
+// ================= LOOP METHOD =================
+                        long startLoop = System.nanoTime();
+
+                        List<Bogie> loopResult = new ArrayList<>();
+                        for (Bogie b : testList) {
+                            if (b.capacity > 60) {
+                                loopResult.add(b);
+                            }
+                        }
+
+                        long endLoop = System.nanoTime();
+                        long loopTime = endLoop - startLoop;
+
+// ================= STREAM METHOD =================
+                        long startStream = System.nanoTime();
+
+                        List<Bogie> streamResult = testList.stream()
+                                .filter(b -> b.capacity > 60)
+                                .toList();
+
+                        long endStream = System.nanoTime();
+                        long streamTime = endStream - startStream;
+
+// ================= OUTPUT =================
+                        System.out.println("Loop Time (ns): " + loopTime);
+                        System.out.println("Stream Time (ns): " + streamTime);
+
+// Verify results
+                        System.out.println("Results Equal Size: " + (loopResult.size() == streamResult.size()));
                     }
                 }
 

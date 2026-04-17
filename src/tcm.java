@@ -104,6 +104,7 @@ public class tcm {
 // Display filtered result
             System.out.println("\nFiltered Bogies (Capacity > 60):");
             System.out.println(filteredBogies);
+            System.out.println("UC8 executed successfully");
         }
     }
 }

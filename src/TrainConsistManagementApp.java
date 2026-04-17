@@ -202,5 +202,30 @@ public class TrainConsistManagementApp {
 // Step 3: Display result
         System.out.println("Sorted Bogie Names:");
         System.out.println(Arrays.toString(bogieNames));
+        // ================= UC18: Linear Search =================
+        System.out.println("\n=== UC18: Linear Search for Bogie ID ===");
+
+// Step 1: Create array
+        String[] bogieIDs = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+
+// Step 2: Search key
+        String searchKey = "BG309";   // change this to test
+
+        boolean found = false;
+
+// Step 3: Linear search
+        for (String id : bogieIDs) {
+            if (id.equals(searchKey)) {
+                found = true;
+                break; // stop early
+            }
+        }
+
+// Step 4: Output
+        if (found) {
+            System.out.println("Bogie Found: " + searchKey);
+        } else {
+            System.out.println("Bogie NOT Found: " + searchKey);
+        }
     }
 }

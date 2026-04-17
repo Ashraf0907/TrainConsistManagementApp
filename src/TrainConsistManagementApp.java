@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
@@ -105,6 +106,8 @@ public class TrainConsistManagementApp {
             System.out.println("\nFiltered Bogies (Capacity > 60):");
             System.out.println(filteredBogies);
             System.out.println("UC8 executed successfully");
+            Map<String, List<Bogie>> groupedBogies = bogieList.stream()
+                    .collect(Collectors.groupingBy(b -> b.name));
         }
     }
 }
